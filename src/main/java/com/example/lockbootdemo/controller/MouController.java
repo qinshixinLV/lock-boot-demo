@@ -1,6 +1,7 @@
 package com.example.lockbootdemo.controller;
 
 import com.example.lockbootdemo.run.MouRunable;
+import com.example.lockbootdemo.service.LockOnService;
 import com.example.lockbootdemo.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,9 @@ public class MouController {
     private static long start = 0;
     
     private static long end = 0;
+    
+    @Autowired
+    private LockOnService lockOnService;
     
     @GetMapping("snap")
     public void snap() {
@@ -42,5 +46,21 @@ public class MouController {
             System.out.println("耗时:" + (end - start));
         }
     }
+    
+    @GetMapping("lockOn")
+    public void lockOn(){
+        lockOnService.lockOn();
+    }
+    
+    @GetMapping("lockOn2")
+    public void lockOn2(){
+        lockOnService.lockOn();
+    }
+    
+    @GetMapping("lockOn3")
+    public void lockOn3(){
+        lockOnService.lockOn();
+    }
+    
     
 }

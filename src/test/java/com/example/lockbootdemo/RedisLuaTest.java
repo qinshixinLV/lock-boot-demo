@@ -20,7 +20,7 @@ public class RedisLuaTest extends LockBootDemoApplicationTests {
         System.out.println(name);
     }
     
-    @Test
+  /*  @Test
     void name2() {
         Long result = redisUtil.deStock("moutai_stock", 1);
         System.out.println("result为:" + result);
@@ -40,5 +40,35 @@ public class RedisLuaTest extends LockBootDemoApplicationTests {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }*/
+    
+    @Test
+    void name4() {
+        long start = System.currentTimeMillis();
+        while (true) {
+            Long moutai_stock = Long.valueOf(redisTemplate.opsForValue().get("moutai_stock"));
+            if (moutai_stock > 0) {
+                redisTemplate.opsForValue().decrement("moutai_stock");
+            } else {
+                break;
+            }
+        }
+        long end = System.currentTimeMillis();
+        System.out.println(end - start);
+    }
+    
+    @Test
+    void name5() {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 1000; i++) {
+            Long moutai_stock = Long.valueOf(redisTemplate.opsForValue().get("moutai_stock"));
+            if (moutai_stock > 0) {
+                redisTemplate.opsForValue().decrement("moutai_stock");
+            } else {
+                break;
+            }
+        }
+        long end = System.currentTimeMillis();
+        System.out.println(end - start);
     }
 }
