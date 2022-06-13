@@ -1,6 +1,7 @@
 package com.example.lockbootdemo;
 
 import com.example.lockbootdemo.run.MouRunable;
+import com.example.lockbootdemo.service.LockOnService;
 import com.example.lockbootdemo.utils.RedisUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ public class RedisLuaTest extends LockBootDemoApplicationTests {
     
     @Autowired
     private RedisUtil redisUtil;
+    
+    @Autowired
+    private LockOnService lockOnService;
     
     @Test
     void name() {
@@ -67,6 +71,16 @@ public class RedisLuaTest extends LockBootDemoApplicationTests {
             } else {
                 break;
             }
+        }
+        long end = System.currentTimeMillis();
+        System.out.println(end - start);
+    }
+    
+    @Test
+    void name6() {
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 1000; i++) {
+            lockOnService.lockOn();
         }
         long end = System.currentTimeMillis();
         System.out.println(end - start);
